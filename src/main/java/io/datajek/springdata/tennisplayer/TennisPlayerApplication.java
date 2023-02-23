@@ -1,5 +1,7 @@
 package io.datajek.springdata.tennisplayer;
 
+import java.sql.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,22 @@ public class TennisPlayerApplication implements CommandLineRunner {
 		logger.info("All Player Date: {}", dao.getAllPlayers());
 		logger.info("Player with Id 3: {}", dao.getPlayerById(3));
 
+		logger.info("Inserting Player 4: {}",
+				dao.insertPlayer(new Player(4, "Thiem", "Austria", new Date(System.currentTimeMillis()), 17)));
+
+		logger.info("Updating Player with Id 4: {}",
+				dao.updatePlayer(new Player(4, "Thiem", "Austria", Date.valueOf("1993-09-03"), 17)));
+
+		logger.info("All Player Date: {}", dao.getAllPlayers());
+		logger.info("Players with Id 4: {})", dao.getPlayerById(4));
+
+		logger.info("Deleting Player with Id 2: {}", dao.deletePlayer(2));
+		logger.info("All Players Data : {}", dao.getAllPlayers());
+
+		dao.createTournamentTable();
+
+		logger.info("Serbian Players: {}", dao.getPlayerByNationality("Serbia"));
+		logger.info("Name Players: {}", dao.getPlayerByName("Thiem"));
 	}
 
 }
